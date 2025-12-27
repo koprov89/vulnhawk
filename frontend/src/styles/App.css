@@ -1,0 +1,386 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f5f5f5;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.App-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.App-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.App-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.App-main {
+  flex: 1;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.App-footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+/* Dashboard */
+.dashboard {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.dashboard h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-card.success {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.stat-card.warning {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stat-card.danger {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.stat-card h3 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-card p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+/* Scan Form */
+.scan-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.scan-form h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  background-color: #d4edda;
+  color: #155724;
+}
+
+/* Results Table */
+.results-section {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.results-section h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.results-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.results-table th,
+.results-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.results-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #555;
+}
+
+.results-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.status-completed {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-running {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status-failed {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status-pending {
+  background-color: #d1ecf1;
+  color: #0c5460;
+}
+
+.no-data {
+  text-align: center;
+  padding: 2rem;
+  color: #999;
+}
+
+/* Scan Details */
+.scan-details {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid #eee;
+}
+
+.scan-details h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.scan-details h4 {
+  margin: 1.5rem 0 1rem;
+  color: #555;
+}
+
+/* Vulnerability Cards */
+.vulnerabilities-section {
+  margin-top: 2rem;
+}
+
+.vulnerability-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.vulnerability-card {
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #667eea;
+}
+
+.vulnerability-card.severity-critical {
+  border-left-color: #dc3545;
+  background-color: #fff5f5;
+}
+
+.vulnerability-card.severity-high {
+  border-left-color: #fd7e14;
+  background-color: #fff8f0;
+}
+
+.vulnerability-card.severity-medium {
+  border-left-color: #ffc107;
+  background-color: #fffbf0;
+}
+
+.vulnerability-card.severity-low {
+  border-left-color: #28a745;
+  background-color: #f0fff4;
+}
+
+.vuln-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.vuln-header h4 {
+  margin: 0;
+  color: #333;
+}
+
+.severity-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.severity-badge.severity-critical {
+  background-color: #dc3545;
+  color: white;
+}
+
+.severity-badge.severity-high {
+  background-color: #fd7e14;
+  color: white;
+}
+
+.severity-badge.severity-medium {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.severity-badge.severity-low {
+  background-color: #28a745;
+  color: white;
+}
+
+.vuln-details p {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.vuln-description,
+.vuln-remediation {
+  margin-top: 1rem;
+}
+
+.vuln-description strong,
+.vuln-remediation strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.vuln-description p,
+.vuln-remediation p {
+  color: #666;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
+  }
+  
+  .stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .vulnerability-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .results-table {
+    font-size: 0.875rem;
+  }
+  
+  .results-table th,
+  .results-table td {
+    padding: 0.5rem;
+  }
+}
