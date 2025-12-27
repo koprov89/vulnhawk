@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./vulnhawk.db
+    volumes:
+      - ./backend/data:/app/data
+    networks:
+      - vulnhawk-network
+    privileged: true
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000/api
+    depends_on:
+      - backend
+    networks:
+      - vulnhawk-network
+
+networks:
+  vulnhawk-network:
+    driver: bridge

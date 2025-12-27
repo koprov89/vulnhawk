@@ -1,0 +1,65 @@
+name: Frontend CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/frontend-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Install dependencies
+      working-directory: ./frontend
+      run: npm ci
+    
+    - name: Run linting
+      working-directory: ./frontend
+      run: |
+        # Basic lint check
+        npx eslint src/ --ext .js,.jsx || true
+    
+    - name: Build application
+      working-directory: ./frontend
+      run: npm run build
+    
+    - name: Run tests
+      working-directory: ./frontend
+      run: npm test -- --passWithNoTests
+  
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Docker image
+      working-directory: ./frontend
+      run: |
+        docker build -t vulnhawk-frontend:latest .
+    
+    - name: Test Docker image
+      run: |
+        docker run -d --name test-frontend -p 8080:80 vulnhawk-frontend:latest
+        sleep 5
+        docker logs test-frontend
+        docker stop test-frontend
+        docker rm test-frontend

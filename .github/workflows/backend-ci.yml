@@ -1,0 +1,70 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-ci.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend-ci.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install dependencies
+      working-directory: ./backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov flake8
+    
+    - name: Lint with flake8
+      working-directory: ./backend
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 app --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings
+        flake8 app --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Test with pytest
+      working-directory: ./backend
+      run: |
+        # Create a simple test for now
+        mkdir -p tests
+        echo "def test_import():" > tests/test_basic.py
+        echo "    from app import main" >> tests/test_basic.py
+        echo "    assert main.app is not None" >> tests/test_basic.py
+        pytest tests/ --cov=app --cov-report=xml
+    
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build Docker image
+      working-directory: ./backend
+      run: |
+        docker build -t vulnhawk-backend:latest .
+    
+    - name: Test Docker image
+      run: |
+        docker run -d --name test-backend vulnhawk-backend:latest
+        sleep 5
+        docker logs test-backend
+        docker stop test-backend
+        docker rm test-backend
