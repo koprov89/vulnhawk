@@ -75,3 +75,4 @@ coverage/
 tmp/
 temp/
 *.tmp
+*.json
